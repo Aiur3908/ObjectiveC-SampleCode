@@ -54,11 +54,13 @@
 }
 
 #pragma mark - implement UIScrollViewDelegate
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //利用寬度與contentOffset.x的距離來計算當前頁面為何，來改變pageControl的顯示
-    CGFloat width = scrollView.frame.size.width;
-    NSInteger currentPage = ((scrollView.contentOffset.x - width / 2) / width) + 1;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    CGFloat width = self.scrollView .frame.size.width;
+    NSInteger currentPage = ((self.scrollView .contentOffset.x - width / 2) / width) + 1;
     [self.pageControl setCurrentPage:currentPage];
 }
 
+- (IBAction)pageAction:(id)sender {
+    [self.scrollView setContentOffset:CGPointMake(self.pageControl.currentPage*CGRectGetWidth(self.view.frame), 0) animated:YES];
+}
 @end
